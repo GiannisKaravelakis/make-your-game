@@ -1,0 +1,17 @@
+#game-container {
+    position: relative;
+    width: 800px;
+    height: 600px;
+    background-color: #87CEEB;
+    overflow: hidden;
+    margin: 0 auto;
+}
+
+#crosshair {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background-color: red;
+    border-radius: 50%;
+    will-change: transform;
+}
