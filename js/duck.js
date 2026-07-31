@@ -34,10 +34,15 @@ function updateDucks(deltaTime) {
 
         duck.x += duck.direct * deltaTime;
 
-        //Bounce of right/left sides
-        if (duck.x <= 0 || duck.x >= containerWidth - duckSize) {
+        //Bounce ducks of the right/left edges
+        //If duck overshoots boundaries place them back at the edge
+        if (duck.x <= 0) {
+            duck.x = 0;
             duck.direct *= -1;
-        }
+        } else if (duck.x >= containerWidth -duckSize) {
+            duck.x = containerWidth - duckSize;
+            duck.direct *= -1;
+        }        
     }
 }
 

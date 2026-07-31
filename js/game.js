@@ -19,8 +19,12 @@ function renderGame() {
 }
 
 function gameLoop(currentTime) {
-    const deltaTime = currentTime - lastTime;
+    let deltaTime = currentTime - lastTime;
     lastTime  = currentTime;
+
+    //A single frame can simulate at most 50ms of movement
+    //to prevent a huge gap in time from when tab is inactive
+    deltaTime = Math.min(deltaTime, 50);
 
     updateGame(deltaTime);
     renderGame();
