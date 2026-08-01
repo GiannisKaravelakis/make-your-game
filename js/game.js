@@ -1,4 +1,5 @@
 let lastTime = 0;
+let score = 0;
 
 const containerWidth = 800;
 const containerHeight = 600;
@@ -6,6 +7,23 @@ const containerHeight = 600;
 //Create some ducks
 for (let i = 0; i < 3; i++) {
     createDuck();
+}
+
+//Press spacebar to shoot
+window.addEventListener('keydown', (e) => {
+    if (e.code === 'Space') {
+        shoot();
+    }
+});
+
+function shoot() {
+    for (const duck of ducks) {
+        if (duck.alive && checkHit(duck)) {
+            duck.alive = false;
+            score++;
+            console.log('Score: ', score); //placeholder score tracker
+        }
+    }
 }
 
 function updateGame(deltaTime) {
