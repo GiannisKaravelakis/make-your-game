@@ -1,3 +1,11 @@
+.screen {
+  display: none;
+}
+
+.screen.active {
+  display: block;
+}
+
 #game-container {
     position: relative;
     width: 800px;
@@ -22,4 +30,14 @@
     background-color: red;
     border-radius: 50%;
     will-change: transform;
+}
+
+#hud {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  color: white;
+  font-family: sans-serif;
+  font-size: 20px;
+  z-index: 5;
 }
