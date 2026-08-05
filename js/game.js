@@ -1,5 +1,6 @@
 let lastTime = 0;
 let score = 0;
+let spaceWasPressed = false;
 
 const containerWidth = 800;
 const containerHeight = 600;
@@ -8,13 +9,6 @@ const containerHeight = 600;
 for (let i = 0; i < 3; i++) {
     createDuck();
 }
-
-//Press spacebar to shoot
-window.addEventListener('keydown', (e) => {
-    if (e.code === 'Space') {
-        shoot();
-    }
-});
 
 function shoot() {
     for (const duck of ducks) {
@@ -29,6 +23,12 @@ function shoot() {
 function updateGame(deltaTime) {
     updateCrosshair(deltaTime);
     updateDucks(deltaTime);
+
+    //Check if space was pressed on this frame
+    if (keys['Space'] && !spaceWasPressed) {
+        shoot();
+    }
+    spaceWasPressed = keys['Space'];
 }
 
 function renderGame() {
