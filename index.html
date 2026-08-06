@@ -5,22 +5,22 @@
         <link rel="stylesheet" href="css/style.css">
     </head>
     <body>
-        <div id="main-menu" class="screen active">
-            <h1>Duck Hunt</h1>
-            <button id="btn-start">Start Game</button>
-        </div>
-
-        <div id="game-container" class="screen">
-            <div id="duck-layer"></div>
+        <div id="game-container">
+            <div id="main-menu" class="screen active">
+                <h1>Duck Hunt</h1>
+                <button id="btn-start">Start Game</button>
+            </div>
+            
+            <div id="duck-layer" class="screen"></div>
             <div id="crosshair"></div>
-            <div id="hud">Score: <span id="score-display">0</span></div>
-        </div>
+            <div id="hud" class="screen">Score: <span id="score-display">0</span></div>            
 
-        <div id="pause-screen" class="screen">
-            <h2>Paused</h2>
-            <button id="btn-resume">Resume</button>
-            <button id="btn-restart">Restart</button>
-            <button id="btn-pause-mainmenu">Main Menu</button>
+            <div id="pause-screen" class="screen">
+                <h2>Paused</h2>
+                <button id="btn-resume">Resume</button>
+                <button id="btn-restart">Restart</button>
+                <button id="btn-pause-mainmenu">Main Menu</button>
+            </div>
         </div>
 
         <script src="js/input.js"></script>
