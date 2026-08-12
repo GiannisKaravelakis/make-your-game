@@ -13,13 +13,23 @@
             
             <div id="duck-layer" class="screen"></div>
             <div id="crosshair"></div>
-            <div id="hud" class="screen">Score: <span id="score-display">0</span></div>            
+            <div id="hud" class="screen">
+                Score: <span id="score-display">0</span>
+                Time: <span id="timer-display">60</span>
+            </div>            
 
             <div id="pause-screen" class="screen">
                 <h2>Paused</h2>
                 <button id="btn-resume">Resume</button>
                 <button id="btn-restart">Restart</button>
                 <button id="btn-pause-mainmenu">Main Menu</button>
+            </div>
+
+            <div id="gameover-screen" class="screen">
+                <h2>Time's Up!</h2>
+                <p>Final Score: <span id="final-score">0</span></p>
+                <button id="btn-gameover-restart">Play Again</button>
+                <button id="btn-gameover-mainmenu">Main Menu</button>
             </div>
         </div>
 

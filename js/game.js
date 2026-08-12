@@ -1,5 +1,8 @@
 let lastTime = 0;
 let score = 0;
+const roundDuration = 60000; //60 seconds
+let timeRemaining = roundDuration;
+
 let spaceWasPressed = false;
 let escapeWasPressed = false;
 
@@ -11,6 +14,10 @@ function resetGame() {
     //Reset score and the displayed value in the screen
     score = 0;
     document.getElementById('score-display').textContent = score;    
+
+    //Reset timer
+    timeRemaining = roundDuration;
+    document.getElementById('timer-display').textContent = Math.ceil(timeRemaining / 1000);
 
     //Reset position of crosshair at the center of the container
     crosshairX = containerWidth / 2;
@@ -44,6 +51,11 @@ function shoot() {
     }
 }
 
+function endGame() {
+    document.getElementById('final-score').textContent = score;
+    setState('GAMEOVER');
+}
+
 function updateGame(deltaTime) {
     //Check the state of the game
     if (gameState !== 'PLAYING') return;
@@ -56,6 +68,17 @@ function updateGame(deltaTime) {
         shoot();
     }
     spaceWasPressed = keys['Space'];
+
+    //Decrease the time and update on screen time
+    timeRemaining -= deltaTime;
+    document.getElementById('timer-display').textContent = Math.ceil(timeRemaining / 1000);
+
+    //End game when timeRemaining reaches 0
+    if (timeRemaining <= 0) {
+        timeRemaining = 0;
+        document.getElementById('timer-display').textContent = 0;
+        endGame();
+    }
 }
 
 function renderGame() {
@@ -106,6 +129,15 @@ document.getElementById('btn-restart').addEventListener('click', () => {
 });
 
 document.getElementById('btn-pause-mainmenu').addEventListener('click', () => {
+  setState('MENU');
+});
+
+document.getElementById('btn-gameover-restart').addEventListener('click', () => {
+  resetGame();
+  setState('PLAYING');
+});
+
+document.getElementById('btn-gameover-mainmenu').addEventListener('click', () => {
   setState('MENU');
 });
 
