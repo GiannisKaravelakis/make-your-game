@@ -10,21 +10,20 @@ const containerHeight = 600;
 function resetGame() {
     //Reset score and the displayed value in the screen
     score = 0;
-    document.getElementById('score-display').textContent = score;
-
-    //Remove all ducks from the previous game
-    for (const duck of ducks) {
-        duck.el.remove();
-    }
-    ducks.length = 0;
+    document.getElementById('score-display').textContent = score;    
 
     //Reset position of crosshair at the center of the container
     crosshairX = containerWidth / 2;
     crosshairY = containerHeight / 2; 
 
-    //Recreate the ducks
-    for (let i = 0; i < 3; i++) {
-        createDuck();
+    if (ducks.length === 0) {
+        //Runs the first time you start the game to build the pool of ducks
+        initDucks();
+    } else {
+        for (const duck of ducks) {
+            //Respawn existing pool of ducks
+            spawnDuck(duck);
+        }
     }
 }
 
@@ -32,9 +31,15 @@ function shoot() {
     for (const duck of ducks) {
         if (duck.alive && checkHit(duck)) {
             duck.alive = false;
+            duck.el.style.display = 'none';
             score++;
             //Update the displayed score
             document.getElementById('score-display').textContent = score;
+
+            //After a duck is shot, bring back a new duck on screen
+            spawnDuck(duck);
+            //Stop checking the other ducks if one is hit
+            break;
         }
     }
 }

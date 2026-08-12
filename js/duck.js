@@ -6,14 +6,15 @@ const ducks = [];
 //Size and speed of ducks
 const duckSize = 50;
 const duckSpeed = 0.15;
+const maxDucks = 3;
 
-//Create the duck and give it a random spawnpoint and direction
+//Create the duck
 function createDuck() {
     const duck = {
-        x: Math.random() * (containerWidth - duckSize),
-        y: Math.random() * (containerHeight - duckSize),
-        direct: Math.random() < 0.5 ? duckSpeed : -duckSpeed,
-        alive: true,
+        x: 0,
+        y: 0,
+        direct: 0,
+        alive: false,
         el: document.createElement('div')
     };
 
@@ -22,9 +23,28 @@ function createDuck() {
     duck.el.style.height = duckSize + 'px';
     duck.el.style.backgroundColor = 'brown';
     duck.el.style.willChange = 'transform';
+    duck.el.style.display = 'none';
 
     duckLayer.appendChild(duck.el);
     ducks.push(duck);
+    return duck;
+}
+
+//Give a duck its spawnpoint and direction
+function spawnDuck(duck) {
+    duck.x = Math.random() * (containerWidth - duckSize);
+    duck.y = Math.random() * (containerHeight - duckSize);
+    duck.direct = Math.random() < 0.5 ? duckSpeed : -duckSpeed;
+    duck.alive = true;
+    duck.el.style.display = 'block'; 
+}
+
+//Initialize the ducks by creating and spawning them
+function initDucks() {
+    for (let i = 0; i < maxDucks; i++) {
+        const duck = createDuck();
+        spawnDuck(duck);
+    }
 }
 
 //Update the place of ducks in the container
@@ -49,7 +69,8 @@ function updateDucks(deltaTime) {
 //Render the ducks in the container
 function renderDucks() {
     for (const duck of ducks) {
-        duck.el.style.transform = `translate(${duck.x}px, ${duck.y}px)`;
-        duck.el.style.display = duck.alive ? 'block' : 'none';
+        if (duck.alive) {
+            duck.el.style.transform = `translate(${duck.x}px, ${duck.y}px)`;
+        }                
     }
 }
