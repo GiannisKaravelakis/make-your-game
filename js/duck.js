@@ -13,7 +13,8 @@ function createDuck() {
     const duck = {
         x: 0,
         y: 0,
-        direct: 0,
+        directX: 0,
+        directY: 0,
         alive: false,
         el: document.createElement('div')
     };
@@ -34,7 +35,14 @@ function createDuck() {
 function spawnDuck(duck) {
     duck.x = Math.random() * (containerWidth - duckSize);
     duck.y = Math.random() * (containerHeight - duckSize);
-    duck.direct = Math.random() < 0.5 ? duckSpeed : -duckSpeed;
+
+    //Pick a random angle for the duck to fly
+    //Chooses 0 to  360 degrees and then gets the x,y coordinates
+    //with the cosine and sine functions.
+    const angle = Math.random() * Math.PI * 2;
+    duck.directX = Math.cos(angle) * duckSpeed;
+    duck.directY = Math.sin(angle) * duckSpeed;
+    
     duck.alive = true;
     duck.el.style.display = 'block'; 
 }
@@ -52,17 +60,28 @@ function updateDucks(deltaTime) {
     for (const duck of ducks) {
         if (!duck.alive) continue;
 
-        duck.x += duck.direct * deltaTime;
+        duck.x += duck.directX * deltaTime;
+        duck.y += duck.directY * deltaTime;
 
         //Bounce ducks of the right/left edges
         //If duck overshoots boundaries place them back at the edge
         if (duck.x <= 0) {
             duck.x = 0;
-            duck.direct *= -1;
+            duck.directX *= -1;
         } else if (duck.x >= containerWidth -duckSize) {
             duck.x = containerWidth - duckSize;
-            duck.direct *= -1;
-        }        
+            duck.directX *= -1;
+        }
+        
+        //Bounce ducks of the top/bottom edges
+        //If duck overshoots boundaries place them back at the edge
+        if (duck.y <= 0) {
+            duck.y = 0;
+            duck.directY *= -1;
+        } else if (duck.y >= containerHeight -duckSize) {
+            duck.y = containerHeight - duckSize;
+            duck.directY *= -1;
+        } 
     }
 }
 
