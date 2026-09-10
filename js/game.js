@@ -69,8 +69,14 @@ function shoot() {
     }
 }
 
-function endGame() {
+function endGame(reason) {
     document.getElementById('final-score').textContent = score;
+    
+    //Change the message of endgame screen
+    //depending on lives or timer end condition
+    const heading = document.querySelector('#gameover-screen h2');
+    heading.textContent = (reason === 'lives') ? 'Out of Lives!' : "Time's Up!";
+    
     setState('GAMEOVER');
 }
 
@@ -126,6 +132,12 @@ function updateGame(deltaTime) {
         }
     }
 
+    //End game if no more lives
+    if (lives <= 0) {
+        endGame('lives');
+        return; //stop this frame's update immediately, game is over
+    }
+
     //Decrease the time and update on screen time
     timeRemaining -= deltaTime;
     document.getElementById('timer-display').textContent = Math.ceil(timeRemaining / 1000);
@@ -134,7 +146,7 @@ function updateGame(deltaTime) {
     if (timeRemaining <= 0) {
         timeRemaining = 0;
         document.getElementById('timer-display').textContent = 0;
-        endGame();
+        endGame('time');
     }
 }
 
