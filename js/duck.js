@@ -47,10 +47,16 @@ function spawnDuck(duck) {
     duck.el.style.display = 'block'; 
 }
 
-//Initialize the ducks by creating and spawning them
+//Initialize the ducks by creating them
 function initDucks() {
     for (let i = 0; i < maxDucks; i++) {
-        const duck = createDuck();
+        createDuck();        
+    }
+}
+
+//Spawn or respawn every duck in the pool at once. Used to start a new wave
+function spawnWave() {
+    for (const duck of ducks) {
         spawnDuck(duck);
     }
 }

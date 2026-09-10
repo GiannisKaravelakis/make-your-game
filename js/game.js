@@ -48,11 +48,9 @@ function resetGame() {
     if (ducks.length === 0) {
         //Runs the first time you start the game to build the pool of ducks
         initDucks();
+        spawnWave();
     } else {
-        for (const duck of ducks) {
-            //Respawn existing pool of ducks
-            spawnDuck(duck);
-        }
+        spawnWave();
     }
 }
 
