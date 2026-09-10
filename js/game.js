@@ -87,6 +87,16 @@ function updateGame(deltaTime) {
     }
     spaceWasPressed = keys['Space'];
 
+    //Check if all ducks in a wave are killed early
+    // and spawn a new wave if so
+    if (waveState === 'ACTIVE') {
+        const anyAlive = ducks.some(duck => duck.alive);
+        if (!anyAlive) {
+            waveState = 'PAUSE';
+            pauseTimer = betweenWaveDelay;
+        }
+    }
+
     //Duck wave logic
     if (waveState === 'ACTIVE') {
         waveTimer -= deltaTime;
