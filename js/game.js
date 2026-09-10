@@ -9,15 +9,37 @@ let escapeWasPressed = false;
 const containerWidth = 800;
 const containerHeight = 600;
 
+//Player lives
+const maxLives = 3;
+let lives = maxLives;
+
+//Duration of each duck wave
+const waveDuration = 5000; //5 seconds
+let waveTimer = waveDuration;
+
+//Pause between waves
+const betweenWaveDelay = 1000;
+let pauseTimer = 0;
+
+let waveState = 'ACTIVE';
+
 //Reseting the game
 function resetGame() {
     //Reset score and the displayed value in the screen
     score = 0;
     document.getElementById('score-display').textContent = score;    
 
-    //Reset timer
+    //Reset round timer
     timeRemaining = roundDuration;
     document.getElementById('timer-display').textContent = Math.ceil(timeRemaining / 1000);
+
+    //Reset player lives
+    lives = maxLives;
+    document.getElementById('lives-display').textContent = lives;
+
+    //Reset duck wave timer
+    waveTimer = waveDuration;
+    waveState = 'ACTIVE';
 
     //Reset position of crosshair at the center of the container
     crosshairX = containerWidth / 2;
