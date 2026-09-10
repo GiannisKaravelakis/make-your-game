@@ -62,9 +62,7 @@ function shoot() {
             score++;
             //Update the displayed score
             document.getElementById('score-display').textContent = score;
-
-            //After a duck is shot, bring back a new duck on screen
-            spawnDuck(duck);
+            
             //Stop checking the other ducks if one is hit
             break;
         }
