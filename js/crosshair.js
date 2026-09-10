@@ -11,10 +11,23 @@ const crosshairSize = 40;
 const crosshairEl = document.getElementById('crosshair');
 
 function updateCrosshair(deltaTime) {
-    if (keys['ArrowLeft'])  crosshairX -= crosshairSpeed * deltaTime;
-    if (keys['ArrowRight']) crosshairX += crosshairSpeed * deltaTime;
-    if (keys['ArrowUp'])    crosshairY -= crosshairSpeed * deltaTime;
-    if (keys['ArrowDown'])  crosshairY += crosshairSpeed * deltaTime;
+    let dx = 0;
+    let dy = 0;
+
+    if (keys['ArrowLeft'])  dx -= 1;
+    if (keys['ArrowRight']) dx += 1; 
+    if (keys['ArrowUp'])    dy -= 1;
+    if (keys['ArrowDown'])  dy += 1;
+
+    //If diagonal movement, normalize it
+    if (dx !== 0 && dy !== 0) {
+        const length = Math.sqrt(dx * dx + dy * dy);
+        dx /= length;
+        dy /= length;
+    }
+
+    crosshairX += dx * crosshairSpeed * deltaTime;
+    crosshairY += dy * crosshairSpeed * deltaTime;
 
     //Stop the crosshair of going out of borders of the container
     crosshairX = Math.max(0, Math.min(crosshairX, containerWidth - crosshairSize));
