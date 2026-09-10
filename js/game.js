@@ -87,6 +87,35 @@ function updateGame(deltaTime) {
     }
     spaceWasPressed = keys['Space'];
 
+    //Duck wave logic
+    if (waveState === 'ACTIVE') {
+        waveTimer -= deltaTime;
+
+        //If the timer for the wave reaches 0, the remaining alive ducks escape
+        if (waveTimer <= 0) {
+            for (const duck of ducks) {
+                if (duck.alive) {
+                    duck.alive = false;
+                    duck.el.style.display = 'none';
+                    lives--;
+                    document.getElementById('lives-display').textContent = lives;
+                }
+            }
+
+            // Brief pause after a wave of ducks ends
+            waveState = 'PAUSE';
+            pauseTimer = betweenWaveDelay;
+        }
+    } else if (waveState === 'PAUSE') {
+        //Check the between the waves timer and spawn the wave of ducks if it reaches 0
+        pauseTimer -= deltaTime;
+        if (pauseTimer <= 0) {
+            spawnWave();
+            waveTimer = waveDuration;
+            waveState = 'ACTIVE';
+        }
+    }
+
     //Decrease the time and update on screen time
     timeRemaining -= deltaTime;
     document.getElementById('timer-display').textContent = Math.ceil(timeRemaining / 1000);
