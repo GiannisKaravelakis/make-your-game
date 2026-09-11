@@ -182,6 +182,9 @@ function gameLoop(currentTime) {
     requestAnimationFrame(gameLoop);
 }
 
+//Initialize a var to check where the back button of howtoplay returns you
+let howToPlayReturnState = 'MENU';
+
 //Buttons to change state of the game
 document.getElementById('btn-start').addEventListener('click', () => {
   resetGame();
@@ -211,11 +214,17 @@ document.getElementById('btn-gameover-mainmenu').addEventListener('click', () =>
 });
 
 document.getElementById('btn-howtoplay').addEventListener('click', () => {
+    howToPlayReturnState = 'MENU';
+    setState('HOWTOPLAY');
+});
+
+document.getElementById('btn-pause-howtoplay').addEventListener('click', () => {
+    howToPlayReturnState = 'PAUSED';
     setState('HOWTOPLAY');
 });
 
 document.getElementById('btn-howtoplay-back').addEventListener('click', () => {
-    setState('MENU');
+    setState(howToPlayReturnState);
 });
 
 requestAnimationFrame(gameLoop);
