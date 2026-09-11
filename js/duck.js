@@ -8,6 +8,10 @@ const duckSize = 50;
 const duckSpeed = 0.15;
 const maxDucks = 3;
 
+//Duck image properties
+const duckFrameCount = 3;   //number of duck frames in spritrsheet
+const frameDuration = 150;  //ms each frame is shown
+
 //Create the duck
 function createDuck() {
     const duck = {
@@ -16,13 +20,17 @@ function createDuck() {
         directX: 0,
         directY: 0,
         alive: false,
+        frame: 0,
+        frameTimer: 0,
         el: document.createElement('div')
     };
 
     duck.el.style.position = 'absolute';
     duck.el.style.width = duckSize + 'px';
     duck.el.style.height = duckSize + 'px';
-    duck.el.style.backgroundColor = 'brown';
+    duck.el.style.backgroundImage = "url('assets/duck/sprite_newduck_right.png')";
+    duck.el.style.backgroundSize = `${duckFrameCount * duckSize}px ${duckSize}px`;
+    duck.el.style.backgroundRepeat = 'no-repeat';    
     duck.el.style.willChange = 'transform';
     duck.el.style.display = 'none';
 
@@ -87,7 +95,14 @@ function updateDucks(deltaTime) {
         } else if (duck.y >= containerHeight -duckSize) {
             duck.y = containerHeight - duckSize;
             duck.directY *= -1;
-        } 
+        }
+        
+        //Advance animation frame of ducks
+        duck.frameTimer += deltaTime;
+        if (duck.frameTimer >= frameDuration) {
+            duck.frameTimer -= frameDuration;
+            duck.frame = (duck.frame + 1) % duckFrameCount;
+        }
     }
 }
 
@@ -95,7 +110,9 @@ function updateDucks(deltaTime) {
 function renderDucks() {
     for (const duck of ducks) {
         if (duck.alive) {
-            duck.el.style.transform = `translate(${duck.x}px, ${duck.y}px)`;
+            const flip = duck.directX < 0 ? 'scaleX(-1)' : 'scaleX(1)';
+            duck.el.style.transform = `translate(${duck.x}px, ${duck.y}px) ${flip}`;
+            duck.el.style.backgroundPosition = `-${duck.frame * duckSize}px 0`;
         }                
     }
 }
