@@ -8,7 +8,8 @@
         <div id="game-container">
             <div id="main-menu" class="screen active">
                 <h1>Duck Hunt</h1>
-                <button id="btn-start">Start Game</button>
+                <button id="btn-start">Start Game</button><br>
+                <button id="btn-howtoplay">How to Play</button>
             </div>
             
             <div id="duck-layer" class="screen"></div>
@@ -17,19 +18,28 @@
                 Score: <span id="score-display">0</span>
                 Time: <span id="timer-display">60</span>
                 Lives: <span id="lives-display">3</span>
-            </div>            
+            </div>
+            
+            <div id="howtoplay-screen" class="screen">
+                <h2>How to Play</h2>
+                <p>Move the crosshair with the arrow keys.</p>
+                <p>Shoot the ducks with space key.</p>
+                <p>Press Escape to pause.</p>
+                <p>Shoot the ducks before they escape.You have 3 lives and 60 seconds.</p>
+                <button id="btn-howtoplay-back">Back</button>                
+            </div>
 
             <div id="pause-screen" class="screen">
                 <h2>Paused</h2>
-                <button id="btn-resume">Resume</button>
-                <button id="btn-restart">Restart</button>
+                <button id="btn-resume">Resume</button><br>
+                <button id="btn-restart">Restart</button><br>
                 <button id="btn-pause-mainmenu">Main Menu</button>
             </div>
 
             <div id="gameover-screen" class="screen">
                 <h2>Time's Up!</h2>
                 <p>Final Score: <span id="final-score">0</span></p>
-                <button id="btn-gameover-restart">Play Again</button>
+                <button id="btn-gameover-restart">Play Again</button><br>
                 <button id="btn-gameover-mainmenu">Main Menu</button>
             </div>
         </div>

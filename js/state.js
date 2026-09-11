@@ -6,7 +6,8 @@ const screens = {
     MENU: document.getElementById('main-menu'),
     PLAYING: document.getElementById('duck-layer'),
     PAUSED: document.getElementById('pause-screen'),
-    GAMEOVER: document.getElementById('gameover-screen')
+    GAMEOVER: document.getElementById('gameover-screen'),
+    HOWTOPLAY: document.getElementById('howtoplay-screen')
 };
 
 function setState(newState) {

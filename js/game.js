@@ -210,4 +210,12 @@ document.getElementById('btn-gameover-mainmenu').addEventListener('click', () =>
   setState('MENU');
 });
 
+document.getElementById('btn-howtoplay').addEventListener('click', () => {
+    setState('HOWTOPLAY');
+});
+
+document.getElementById('btn-howtoplay-back').addEventListener('click', () => {
+    setState('MENU');
+});
+
 requestAnimationFrame(gameLoop);
