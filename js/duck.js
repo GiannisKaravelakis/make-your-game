@@ -12,6 +12,9 @@ const maxDucks = 3;
 const duckFrameCount = 3;   //number of duck frames in spritrsheet
 const frameDuration = 150;  //ms each frame is shown
 
+//Lowest height that ducks can fly to
+const duckMaxY = 375;
+
 //Create the duck
 function createDuck() {
     const duck = {
@@ -42,12 +45,18 @@ function createDuck() {
 //Give a duck its spawnpoint and direction
 function spawnDuck(duck) {
     duck.x = Math.random() * (containerWidth - duckSize);
-    duck.y = Math.random() * (containerHeight - duckSize);
+    duck.y = duckMaxY - duckSize;
 
     //Pick a random angle for the duck to fly
-    //Chooses 0 to  360 degrees and then gets the x,y coordinates
+    //Chooses roughly between 17 to 163 degrees and 197 to 343 
+    //and then gets the x,y coordinates
     //with the cosine and sine functions.
-    const angle = Math.random() * Math.PI * 2;
+    //This excludes near horizontal flying patterns
+    let angle;
+    do {
+        angle = Math.random() * Math.PI * 2;
+    } while (Math.abs(Math.sin(angle)) < 0.3);
+    
     duck.directX = Math.cos(angle) * duckSpeed;
     duck.directY = Math.sin(angle) * duckSpeed;
     
@@ -92,8 +101,8 @@ function updateDucks(deltaTime) {
         if (duck.y <= 0) {
             duck.y = 0;
             duck.directY *= -1;
-        } else if (duck.y >= containerHeight -duckSize) {
-            duck.y = containerHeight - duckSize;
+        } else if (duck.y >= duckMaxY -duckSize) {
+            duck.y = duckMaxY - duckSize;
             duck.directY *= -1;
         }
         
