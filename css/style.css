@@ -2,9 +2,25 @@
     position: relative;
     width: 800px;
     height: 600px;
-    background-color: #87CEEB;
+    background-image: url('../assets/background/sprite_bg.png');
+    background-size: cover;
+    background-position: center bottom;
     overflow: hidden;
     margin: 0 auto;
+}
+
+#foreground {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('../assets/background/sprite_bg_ground.png');
+  background-size: cover;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  z-index: 5;
+  pointer-events: none;
 }
 
 .screen {
@@ -50,5 +66,6 @@
   background-color: rgba(0, 0, 0, 0.6);
   color: white;
   text-align: center;
-  padding-top: 200px;  
+  padding-top: 200px;
+  z-index: 20;  
 }
