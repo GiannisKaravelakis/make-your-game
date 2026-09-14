@@ -4,7 +4,7 @@ const duckLayer = document.getElementById('duck-layer');
 const ducks = [];
 
 //Size and speed of ducks
-const duckSize = 50;
+const duckSize = 60;
 const duckSpeed = 0.15;
 const maxDucks = 3;
 
